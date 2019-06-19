@@ -6,6 +6,7 @@ import (
 
 	"github.com/wincentrtz/gobase/domains/user"
 	"github.com/wincentrtz/gobase/models"
+	"github.com/wincentrtz/gobase/querybuilder"
 )
 
 type userRepository struct {
@@ -23,9 +24,7 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 	var name string
 	var email string
 
-	query := `
-		SELECT id, name, email FROM users
-		WHERE id =` + strconv.Itoa(userId)
+	query := querybuilder.NewQueryBuilder().Table("users").Select("id,name,email").Where("id", "=", strconv.Itoa(userId)).Excecute()
 
 	err := m.Conn.QueryRow(query).Scan(
 		&id,
