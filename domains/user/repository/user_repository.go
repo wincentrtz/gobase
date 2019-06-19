@@ -1,0 +1,47 @@
+package repository
+
+import (
+	"database/sql"
+	"strconv"
+
+	"github.com/wincentrtz/gobase/domains/user"
+	"github.com/wincentrtz/gobase/models"
+)
+
+type userRepository struct {
+	Conn *sql.DB
+}
+
+func NewUserRepository(Conn *sql.DB) user.Repository {
+	return &userRepository{
+		Conn,
+	}
+}
+
+func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
+	var id int
+	var name string
+	var email string
+
+	query := `
+		SELECT id, name, email FROM users
+		WHERE id =` + strconv.Itoa(userId)
+
+	err := m.Conn.QueryRow(query).Scan(
+		&id,
+		&name,
+		&email,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	user := &models.User{
+		ID:    id,
+		Name:  name,
+		Email: email,
+	}
+
+	return user, nil
+}
