@@ -10,6 +10,8 @@ type QueryBuilder interface {
 	Table(string) QueryBuilder
 	Select(string) QueryBuilder
 	Where(string, string, string) QueryBuilder
+	AndWhere(string, string, string) QueryBuilder
+	OrWhere(string, string, string) QueryBuilder
 	Excecute() string
 }
 
@@ -31,7 +33,20 @@ func (qb *queryBuilder) Select(value string) QueryBuilder {
 }
 
 func (qb *queryBuilder) Where(attribute string, comparator string, value string) QueryBuilder {
-	qb.where = "WHERE " + attribute + " " + comparator + " " + value
+	conditionalQuery := attribute + " " + comparator + " '" + value + "'"
+	qb.where = "WHERE " + conditionalQuery
+	return qb
+}
+
+func (qb *queryBuilder) AndWhere(attribute string, comparator string, value string) QueryBuilder {
+	conditionalQuery := attribute + " " + comparator + " '" + value + "'"
+	qb.where = "AND " + conditionalQuery
+	return qb
+}
+
+func (qb *queryBuilder) OrWhere(attribute string, comparator string, value string) QueryBuilder {
+	conditionalQuery := attribute + " " + comparator + " '" + value + "'"
+	qb.where = "OR " + conditionalQuery
 	return qb
 }
 
