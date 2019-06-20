@@ -28,7 +28,7 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 		Table("users").
 		Select("id,name,email").
 		Where("id", "=", strconv.Itoa(userId)).
-		Excecute()
+		Build()
 
 	err := m.Conn.QueryRow(query).Scan(
 		&id,
