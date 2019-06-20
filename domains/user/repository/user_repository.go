@@ -37,6 +37,7 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 	)
 
 	if err != nil {
+		panic(err)
 		return nil, err
 	}
 

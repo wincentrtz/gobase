@@ -6,6 +6,7 @@ import (
 	"github.com/urfave/cli"
 	"github.com/wincentrtz/gobase/gobase/command/db"
 	"github.com/wincentrtz/gobase/gobase/command/generate"
+	"github.com/wincentrtz/gobase/gobase/command/server"
 )
 
 func Command(c *cli.Context) error {
@@ -20,6 +21,9 @@ func Command(c *cli.Context) error {
 		case "clear":
 			db.Drop()
 		}
+	case "serve":
+		server.Serve()
+
 	default:
 		fmt.Println("Command Does Not Exist")
 	}

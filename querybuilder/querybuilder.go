@@ -1,5 +1,7 @@
 package querybuilder
 
+import "fmt"
+
 type queryBuilder struct {
 	table string
 	where string
@@ -13,6 +15,7 @@ type QueryBuilder interface {
 	Where(string, string, string) QueryBuilder
 	AndWhere(string, string, string) QueryBuilder
 	OrWhere(string, string, string) QueryBuilder
+	Join(string, string, string) QueryBuilder
 	Build() string
 }
 
@@ -57,5 +60,6 @@ func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) Qu
 }
 
 func (qb *queryBuilder) Build() string {
+	fmt.Println(qb.value + " " + qb.table + " " + qb.join + " " + qb.where)
 	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where
 }
