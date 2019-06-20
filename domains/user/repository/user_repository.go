@@ -27,7 +27,7 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 	query := querybuilder.NewQueryBuilder().
 		Table("users").
 		Select("id,name,email").
-		Where("id", "LIKE", "%"+strconv.Itoa(userId)+"%").
+		Where("id", "=", strconv.Itoa(userId)).
 		Excecute()
 
 	err := m.Conn.QueryRow(query).Scan(
