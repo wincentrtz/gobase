@@ -3,6 +3,7 @@ package querybuilder
 type queryBuilder struct {
 	table string
 	where string
+	join  string
 	value string
 }
 
@@ -50,6 +51,11 @@ func (qb *queryBuilder) OrWhere(attribute string, comparator string, value strin
 	return qb
 }
 
+func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) QueryBuilder {
+	qb.join = "JOIN " + table + " ON " + firstKey + " = " + secondKey
+	return qb
+}
+
 func (qb *queryBuilder) Excecute() string {
-	return qb.value + " " + qb.table + " " + qb.where
+	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where
 }
