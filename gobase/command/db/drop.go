@@ -6,14 +6,14 @@ import (
 	"log"
 
 	"github.com/wincentrtz/gobase/config"
-	"github.com/wincentrtz/gobase/querybuilder"
+	"github.com/wincentrtz/gobase/utils"
 )
 
 func GetAllTables(db *sql.DB) string {
 
 	var tables string
 
-	query := querybuilder.NewQueryBuilder().
+	query := utils.NewQueryBuilder().
 		Table("information_schema.tables").
 		Select("table_name").
 		Where("table_schema", "=", "public").

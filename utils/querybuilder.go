@@ -1,6 +1,4 @@
-package querybuilder
-
-import "fmt"
+package utils
 
 type queryBuilder struct {
 	table string
@@ -60,6 +58,5 @@ func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) Qu
 }
 
 func (qb *queryBuilder) Build() string {
-	fmt.Println(qb.value + " " + qb.table + " " + qb.join + " " + qb.where)
 	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where
 }
