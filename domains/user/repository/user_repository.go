@@ -13,13 +13,13 @@ type userRepository struct {
 	Conn *sql.DB
 }
 
-func NewUserRepository(Conn *sql.DB) user.Repository {
+func NewUserRepository(db *sql.DB) user.Repository {
 	return &userRepository{
-		Conn,
+		Conn: db,
 	}
 }
 
-func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
+func (ur *userRepository) FetchUserById(userId int) (*models.User, error) {
 	var id int
 	var name string
 	var email string
@@ -30,7 +30,7 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 		Where("id", "=", strconv.Itoa(userId)).
 		Build()
 
-	err := m.Conn.QueryRow(query).Scan(
+	err := ur.Conn.QueryRow(query).Scan(
 		&id,
 		&name,
 		&email,

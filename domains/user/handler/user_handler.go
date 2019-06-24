@@ -1,9 +1,12 @@
 package rest
 
 import (
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"strconv"
+
+	userUsecase "github.com/wincentrtz/gobase/domains/user/usecase"
 
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/domains/user"
@@ -14,9 +17,9 @@ type UserHandler struct {
 	UserUsecase user.Usecase
 }
 
-func NewUserHandler(r *mux.Router, us user.Usecase) {
+func NewUserHandler(r *mux.Router, db *sql.DB) {
 	handler := &UserHandler{
-		UserUsecase: us,
+		UserUsecase: userUsecase.NewUserUsecase(db),
 	}
 	r.HandleFunc("/api/users/{id}", handler.FindById).Methods("GET")
 }

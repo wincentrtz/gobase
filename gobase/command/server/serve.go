@@ -1,6 +1,7 @@
 package server
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 
@@ -9,8 +10,10 @@ import (
 	"github.com/wincentrtz/gobase/route"
 )
 
+var db *sql.DB
+
 func Serve() {
-	db := config.InitDb()
+	db = config.InitDb()
 	defer db.Close()
 	serverPort := ":" + viper.GetString(`server.port`)
 	serverHost := "http://" + viper.GetString(`server.host`) + serverPort
