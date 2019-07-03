@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/spf13/viper"
-	"github.com/wincentrtz/gobase/config"
+	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/route"
 )
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/wincentrtz/gobase/config"
+	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/utils"
 )
 
