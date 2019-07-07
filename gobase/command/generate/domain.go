@@ -16,6 +16,7 @@ func generateRepository(domain string) {
 		fmt.Printf("Unable to write file: %v", err)
 	}
 	err = ioutil.WriteFile("domains/"+domain+"/repository/"+domain+"_repository.go", []byte("package repository"), 0755)
+	err = ioutil.WriteFile("domains/"+domain+"/repository/"+domain+"_repository_test.go", []byte("package repository_test"), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
@@ -32,11 +33,19 @@ func generateUsecase(domain string) {
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
+	err = ioutil.WriteFile("domains/"+domain+"/usecase/"+domain+"_usecase_test.go", []byte("package usecase_test"), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
 }
 
 func generateHandler(domain string) {
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/handler", 0775)
 	err := ioutil.WriteFile("domains/"+domain+"/handler/"+domain+"_handler.go", []byte("package handler"), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
+	err = ioutil.WriteFile("domains/"+domain+"/handler/"+domain+"_handler_test.go", []byte("package handler_test"), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
