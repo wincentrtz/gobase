@@ -1,6 +1,7 @@
 package utils
 
 type queryBuilder struct {
+	raw   string
 	table string
 	where string
 	join  string
@@ -8,6 +9,7 @@ type queryBuilder struct {
 }
 
 type QueryBuilder interface {
+	Raw(string) QueryBuilder
 	Table(string) QueryBuilder
 	Select(string) QueryBuilder
 	Where(string, string, string) QueryBuilder
@@ -22,6 +24,11 @@ func NewQueryBuilder() QueryBuilder {
 		table: "",
 		value: "",
 	}
+}
+
+func (qb *queryBuilder) Raw(raw string) QueryBuilder {
+	qb.raw = raw
+	return qb
 }
 
 func (qb *queryBuilder) Table(table string) QueryBuilder {
@@ -58,5 +65,8 @@ func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) Qu
 }
 
 func (qb *queryBuilder) Build() string {
+	if len(qb.raw) != 0 {
+		return qb.raw
+	}
 	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where
 }
