@@ -1,11 +1,12 @@
 package utils
 
 type queryBuilder struct {
-	raw   string
-	table string
-	where string
-	join  string
-	value string
+	raw     string
+	table   string
+	where   string
+	join    string
+	value   string
+	groupby string
 }
 
 type QueryBuilder interface {
@@ -16,6 +17,7 @@ type QueryBuilder interface {
 	AndWhere(string, string, string) QueryBuilder
 	OrWhere(string, string, string) QueryBuilder
 	Join(string, string, string) QueryBuilder
+	GroupBy(string) QueryBuilder
 	Build() string
 }
 
@@ -64,9 +66,14 @@ func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) Qu
 	return qb
 }
 
+func (qb *queryBuilder) GroupBy(groupby string) QueryBuilder {
+	qb.groupby = "GROUP BY " + groupby
+	return qb
+}
+
 func (qb *queryBuilder) Build() string {
 	if len(qb.raw) != 0 {
 		return qb.raw
 	}
-	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where
+	return qb.value + " " + qb.table + " " + qb.join + " " + qb.where + " " + qb.groupby
 }
