@@ -20,6 +20,8 @@ func Command(c *cli.Context) error {
 		switch c.Args().Get(1) {
 		case "clear":
 			db.Drop()
+		case "migrate":
+			db.Migrate()
 		}
 	case "serve":
 		server.Serve()
