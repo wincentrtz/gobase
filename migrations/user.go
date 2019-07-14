@@ -1,10 +1,18 @@
 package migrations
 
+import (
+	"github.com/wincentrtz/gobase/gobase/utils"
+)
+
 func Schema() string {
-	return `CREATE TABLE users(
-		id serial PRIMARY KEY,
-		name VARCHAR NOT NULL,
-		email VARCHAR NOT NULL,
-		created_on TIMESTAMP NOT NULL
-	);`
+	return utils.Migration().Table("users").Column(initializeColumns()).Build()
+}
+
+func initializeColumns() []utils.Column {
+	return []utils.Column{
+		utils.NewColumn().Name("id").Primary().Build(),
+		utils.NewColumn().Name("name").TypeData("VARCHAR").NotNull().Build(),
+		utils.NewColumn().Name("email").TypeData("VARCHAR").NotNull().Build(),
+		utils.NewColumn().Name("created_on").TypeData("TIMESTAMP").NotNull().Build(),
+	}
 }
