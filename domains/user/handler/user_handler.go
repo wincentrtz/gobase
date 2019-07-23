@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"database/sql"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -17,9 +16,9 @@ type UserHandler struct {
 	UserUsecase user.Usecase
 }
 
-func NewUserHandler(r *mux.Router, db *sql.DB) {
+func NewUserHandler(r *mux.Router) {
 	handler := &UserHandler{
-		UserUsecase: userUsecase.NewUserUsecase(db),
+		UserUsecase: userUsecase.NewUserUsecase(),
 	}
 	r.HandleFunc("/api/users/{id}", handler.FindById).Methods("GET")
 }

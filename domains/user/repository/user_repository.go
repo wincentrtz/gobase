@@ -5,17 +5,18 @@ import (
 	"strconv"
 
 	"github.com/wincentrtz/gobase/domains/user"
+	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/models"
 	"github.com/wincentrtz/gobase/utils"
 )
 
 type userRepository struct {
-	Conn *sql.DB
+	db *sql.DB
 }
 
-func NewUserRepository(db *sql.DB) user.Repository {
+func NewUserRepository() user.Repository {
 	return &userRepository{
-		Conn: db,
+		db: config.InitDb(),
 	}
 }
 
@@ -24,13 +25,15 @@ func (ur *userRepository) FetchUserById(userId int) (*models.User, error) {
 	var name string
 	var email string
 
+	defer ur.db.Close()
+
 	query := utils.NewQueryBuilder().
 		Table("users").
 		Select("id,name,email").
 		Where("id", "=", strconv.Itoa(userId)).
 		Build()
 
-	err := ur.Conn.QueryRow(query).Scan(
+	err := ur.db.QueryRow(query).Scan(
 		&id,
 		&name,
 		&email,
