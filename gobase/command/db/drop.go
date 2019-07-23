@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/wincentrtz/gobase/gobase/config"
-	"github.com/wincentrtz/gobase/utils"
+	"github.com/wincentrtz/gobase/gobase/utils"
 )
 
 func GetAllTables(db *sql.DB) string {

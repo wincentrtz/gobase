@@ -6,8 +6,8 @@ import (
 
 	"github.com/wincentrtz/gobase/domains/user"
 	"github.com/wincentrtz/gobase/gobase/config"
+	"github.com/wincentrtz/gobase/gobase/utils"
 	"github.com/wincentrtz/gobase/models"
-	"github.com/wincentrtz/gobase/utils"
 )
 
 type userRepository struct {
