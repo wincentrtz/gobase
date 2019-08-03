@@ -4,11 +4,11 @@ import (
 	"github.com/wincentrtz/gobase/gobase/utils"
 )
 
-func Schema() string {
-	return utils.Migration().Table("users").Column(initializeColumns()).Build()
+func UserSchema() string {
+	return utils.Migration().Table("users").Column(initializeUserColumns()).Build()
 }
 
-func initializeColumns() []utils.Column {
+func initializeUserColumns() []utils.Column {
 	return []utils.Column{
 		utils.NewColumn().Name("id").Primary().Build(),
 		utils.NewColumn().Name("name").TypeData("VARCHAR").NotNull().Build(),

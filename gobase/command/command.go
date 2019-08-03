@@ -15,7 +15,12 @@ func Command(c *cli.Context) error {
 		switch c.Args().Get(1) {
 		case "domain":
 			generate.Domain(c)
+			break
+		case "migration":
+			generate.Migration(c)
+			break
 		}
+
 	case "db":
 		switch c.Args().Get(1) {
 		case "clear":

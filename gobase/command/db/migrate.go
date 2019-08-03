@@ -11,11 +11,12 @@ import (
 func Migrate() {
 	db := config.InitDb()
 	defer db.Close()
-	schema := migrations.Schema()
-
-	_, err := db.Exec(schema)
-	if err != nil {
-		log.Fatal(err)
+	schemas := migrations.GetMigrations()
+	for _, v := range schemas {
+		_, err := db.Exec(v)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
-	fmt.Printf("Successfully migrate user table")
+	fmt.Printf("Successfully migrate all table")
 }
