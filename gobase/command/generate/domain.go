@@ -31,11 +31,14 @@ func generateRepositoryImpl(domain string) {
 	}
 	file := string(input)
 	file = strings.Replace(file, "Template", strings.Title(domain), -1)
-	file = strings.Replace(file, "templateRepository", domain+"repository", -1)
+	file = strings.Replace(file, "templateRepository", domain+"Repository", -1)
 	file = strings.Replace(file, "template", "repository", -1)
 
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/repository", 0775)
 	err = ioutil.WriteFile("domains/"+domain+"/repository/"+domain+"_repository.go", []byte(file), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
 	err = ioutil.WriteFile("domains/"+domain+"/repository/"+domain+"_repository_test.go", []byte("package repository_test"), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
@@ -43,13 +46,33 @@ func generateRepositoryImpl(domain string) {
 }
 
 func generateUsecase(domain string) {
+	input, err := ioutil.ReadFile("gobase/template/usecase.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = strings.Replace(file, "Template", strings.Title(domain), -1)
+	file = strings.Replace(file, "template", domain, -1)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/usecase", 0775)
-	err := ioutil.WriteFile("domains/"+domain+"/usecase.go", []byte("package "+domain), 0755)
+	err = ioutil.WriteFile("domains/"+domain+"/usecase.go", []byte(file), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
+}
 
-	err = ioutil.WriteFile("domains/"+domain+"/usecase/"+domain+"_usecase.go", []byte("package usecase"), 0755)
+func generateUsecaseImpl(domain string) {
+	input, err := ioutil.ReadFile("gobase/template/usecase_impl.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = strings.Replace(file, "NewTemplateRepository", "repository.New"+strings.Title(domain)+"Repository", -1)
+	file = strings.Replace(file, "TemplateRepository", domain+"."+strings.Title(domain)+"Repository", -1)
+	file = strings.Replace(file, "Template", strings.Title(domain), -1)
+	file = strings.Replace(file, "templateRepo", domain+"Repo", -1)
+	file = strings.Replace(file, "templateUsecase", domain+"Usecase", -1)
+	file = strings.Replace(file, "template", "usecase", -1)
+	err = ioutil.WriteFile("domains/"+domain+"/usecase/"+domain+"_usecase.go", []byte(file), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
@@ -78,6 +101,7 @@ func Domain(c *cli.Context) {
 	generateRepository(domain)
 	generateRepositoryImpl(domain)
 	generateUsecase(domain)
+	generateUsecaseImpl(domain)
 	generateHandler(domain)
 
 	fmt.Printf("Successfully " + domain + " domain")
