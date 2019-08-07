@@ -83,8 +83,19 @@ func generateUsecaseImpl(domain string) {
 }
 
 func generateHandler(domain string) {
+	input, err := ioutil.ReadFile("gobase/template/handler.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = strings.Replace(file, "NewTemplateUsecase", "usecase.New"+strings.Title(domain)+"Usecase", -1)
+	file = strings.Replace(file, "TemplateUsecase", domain+"."+strings.Title(domain)+"Usecase", -1)
+	file = strings.Replace(file, "Template", strings.Title(domain), -1)
+	file = strings.Replace(file, "templateUsecase", domain+"Usecase", -1)
+	file = strings.Replace(file, "templateHandler", domain+"Handler", -1)
+	file = strings.Replace(file, "template", "handler", -1)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/handler", 0775)
-	err := ioutil.WriteFile("domains/"+domain+"/handler/"+domain+"_handler.go", []byte("package handler"), 0755)
+	err = ioutil.WriteFile("domains/"+domain+"/handler/"+domain+"_handler.go", []byte(file), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
