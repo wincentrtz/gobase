@@ -35,9 +35,8 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 		}
 		json.NewEncoder(w).Encode(er)
 		return
-	} else {
-		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(user)
 	}
-
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(user)
+	return
 }
