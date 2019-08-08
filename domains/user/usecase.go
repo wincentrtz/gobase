@@ -1,7 +1,7 @@
 package user
 
-import "github.com/wincentrtz/gobase/models"
+import "github.com/wincentrtz/gobase/models/responses"
 
 type Usecase interface {
-	FetchUserById(userId int) (*models.User, error)
+	FetchUserById(userId int) (*responses.User, error)
 }

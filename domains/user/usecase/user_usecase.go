@@ -3,7 +3,7 @@ package usecase
 import (
 	"github.com/wincentrtz/gobase/domains/user"
 	"github.com/wincentrtz/gobase/domains/user/repository"
-	"github.com/wincentrtz/gobase/models"
+	"github.com/wincentrtz/gobase/models/responses"
 )
 
 type userUsecase struct {
@@ -16,7 +16,7 @@ func NewUserUsecase() user.Usecase {
 	}
 }
 
-func (pu *userUsecase) FetchUserById(userId int) (*models.User, error) {
+func (pu *userUsecase) FetchUserById(userId int) (*responses.User, error) {
 	user, err := pu.userRepo.FetchUserById(userId)
 	if err != nil {
 		return nil, err
