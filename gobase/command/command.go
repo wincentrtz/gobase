@@ -23,6 +23,8 @@ func Command(c *cli.Context) error {
 
 	case "db":
 		switch c.Args().Get(1) {
+		case "fresh":
+			db.Fresh()
 		case "clear":
 			db.Drop()
 		case "migrate":

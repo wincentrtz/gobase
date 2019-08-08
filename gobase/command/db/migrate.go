@@ -21,5 +21,5 @@ func Migrate() {
 		}(&wg, v)
 	}
 	wg.Wait()
-	fmt.Printf("Successfully migrate all table")
+	fmt.Print("Successfully migrate all tables")
 }

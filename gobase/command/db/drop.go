@@ -44,4 +44,5 @@ func Drop() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Successfully drop all tables")
 }
