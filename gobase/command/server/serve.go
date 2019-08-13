@@ -1,15 +1,12 @@
 package server
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 
 	"github.com/spf13/viper"
 	"github.com/wincentrtz/gobase/route"
 )
-
-var db *sql.DB
 
 func Serve() {
 	serverPort := ":" + viper.GetString(`server.port`)

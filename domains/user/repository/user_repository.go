@@ -40,7 +40,6 @@ func (ur *userRepository) FetchUserById(userId int) (*responses.User, error) {
 	)
 
 	if err != nil {
-		panic(err)
 		return nil, err
 	}
 

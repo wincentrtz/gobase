@@ -115,5 +115,5 @@ func Domain(c *cli.Context) {
 	generateUsecaseImpl(domain)
 	generateHandler(domain)
 
-	fmt.Printf("Successfully " + domain + " domain")
+	fmt.Printf("Successfully generate " + domain + " domain")
 }

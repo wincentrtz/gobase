@@ -19,6 +19,9 @@ func Command(c *cli.Context) error {
 		case "migration":
 			generate.Migration(c)
 			break
+		case "response":
+			generate.Response(c)
+			break
 		}
 
 	case "db":
