@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/urfave/cli"
+	"github.com/wincentrtz/gobase/gobase/command/app"
 	"github.com/wincentrtz/gobase/gobase/command/db"
 	"github.com/wincentrtz/gobase/gobase/command/generate"
-	"github.com/wincentrtz/gobase/gobase/command/server"
 )
 
 func Command(c *cli.Context) error {
@@ -34,7 +34,7 @@ func Command(c *cli.Context) error {
 			db.Migrate()
 		}
 	case "serve":
-		server.Serve()
+		app.Serve()
 
 	default:
 		fmt.Println("Command Does Not Exist")
