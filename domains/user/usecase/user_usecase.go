@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"github.com/wincentrtz/gobase/domains/user"
-	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/models/responses"
 )
 
@@ -10,9 +9,9 @@ type userUsecase struct {
 	userRepo user.Repository
 }
 
-func NewUserUsecase() user.Usecase {
+func NewUserUsecase(ur user.Repository) user.Usecase {
 	return &userUsecase{
-		userRepo: repository.NewUserRepository(),
+		userRepo: ur,
 	}
 }
 
