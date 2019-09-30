@@ -9,16 +9,21 @@ import (
 	"github.com/wincentrtz/gobase/models/responses"
 )
 
+const FETCH_USER_BY_ID = "FetchUserById"
+const ID = 1
+const NAME = "name"
+const EMAIL = "email@example.com"
+
 var user = &responses.User{
-	ID:    1,
-	Name:  "name",
-	Email: "email",
+	ID:    ID,
+	Name:  NAME,
+	Email: EMAIL,
 }
 
-func TestCalc(t *testing.T) {
+func TestFetchUserById(t *testing.T) {
 	mockRepo := new(mocks.Repository)
-	mockRepo.On("FetchUserById", 1).Return(user, nil)
-	uc := usecase.NewUserUsecase(mockRepo)
-	res, _ := uc.FetchUserById(1)
-	assert.Equal(t, user, res)
+	mockRepo.On(FETCH_USER_BY_ID, ID).Return(user, nil)
+	userUsecase := usecase.NewUserUsecase(mockRepo)
+	expectedResult, _ := userUsecase.FetchUserById(ID)
+	assert.Equal(t, user, expectedResult)
 }
