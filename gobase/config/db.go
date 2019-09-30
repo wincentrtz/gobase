@@ -3,30 +3,19 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
-	"github.com/spf13/viper"
 )
 
-func init() {
-	viper.SetConfigFile(`config.json`)
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
-	}
-
-	if viper.GetBool(`debug`) {
-		fmt.Println("Service RUN on DEBUG mode")
-	}
-}
-
 func InitDb() *sql.DB {
-	host := viper.GetString(`database.host`)
-	port := viper.GetString(`database.port`)
-	user := viper.GetString(`database.user`)
-	password := viper.GetString(`database.password`)
-	dbname := viper.GetString(`database.dbname`)
-	driver := viper.GetString(`database.driver`)
+
+	driver := os.Getenv("DB_DRIVER")
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	dbname := os.Getenv("DB_NAME")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
