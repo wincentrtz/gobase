@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/domains/user/usecase"
 
 	"github.com/gorilla/mux"
@@ -17,8 +18,10 @@ type UserHandler struct {
 }
 
 func NewUserHandler(r *mux.Router) {
+	ur := repository.NewUserRepository()
+	us := usecase.NewUserUsecase(ur)
 	handler := &UserHandler{
-		UserUsecase: usecase.NewUserUsecase(),
+		UserUsecase: us,
 	}
 	r.HandleFunc("/api/users/{id}", handler.FindById).Methods("GET")
 }
