@@ -1,8 +1,8 @@
 package route
 
 import (
-	"github.com/wincentrtz/gobase/infrastructures/middleware"
 	userHandler "github.com/wincentrtz/gobase/domains/user/handler"
+	"github.com/wincentrtz/gobase/infrastructures/middleware"
 
 	"github.com/gorilla/mux"
 )

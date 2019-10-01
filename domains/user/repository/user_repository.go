@@ -24,8 +24,6 @@ func (ur *userRepository) FetchUserById(userId int) (*responses.User, error) {
 	var name string
 	var email string
 
-	defer ur.db.Close()
-
 	query := utils.NewQueryBuilder().
 		Table("users").
 		Select("id,name,email").
