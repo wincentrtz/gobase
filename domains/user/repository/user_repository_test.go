@@ -17,6 +17,8 @@ const (
 	EMAIL = "email@example.com"
 )
 
+var ROWS = []string{"id", "name", "email"}
+
 var mockUser = &responses.User{
 	ID:    ID,
 	Name:  NAME,
@@ -28,7 +30,7 @@ func TestFetch(t *testing.T) {
 	if err != nil {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
-	rows := sqlmock.NewRows([]string{"id", "name", "email"}).AddRow(mockUser.ID, mockUser.Name, mockUser.Email)
+	rows := sqlmock.NewRows(ROWS).AddRow(mockUser.ID, mockUser.Name, mockUser.Email)
 	query := utils.NewQueryBuilder().
 		Table("users").
 		Select("id,name,email").
