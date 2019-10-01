@@ -1,17 +1,17 @@
 package handler
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
 	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/domains/user/usecase"
+	"github.com/wincentrtz/gobase/models/responses"
 
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/domains/user"
 	"github.com/wincentrtz/gobase/gobase/config"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/gobase/utils"
 )
 
 type UserHandler struct {
@@ -34,14 +34,11 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	user, err := uh.UserUsecase.FetchUserById(i)
 	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
 		er := responses.ErrorResponse{
 			Message: "Data Not Found",
 		}
-		json.NewEncoder(w).Encode(er)
-		return
+		utils.ErrorResponse(w, er)
+	} else {
+		utils.SuccessResponse(w, user)
 	}
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
-	return
 }
