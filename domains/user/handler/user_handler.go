@@ -10,6 +10,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/domains/user"
+	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/models/responses"
 )
 
@@ -18,7 +19,8 @@ type UserHandler struct {
 }
 
 func NewUserHandler(r *mux.Router) {
-	ur := repository.NewUserRepository()
+	db := config.InitDb()
+	ur := repository.NewUserRepository(db)
 	us := usecase.NewUserUsecase(ur)
 	handler := &UserHandler{
 		UserUsecase: us,

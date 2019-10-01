@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/wincentrtz/gobase/domains/user"
-	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/gobase/utils"
 	"github.com/wincentrtz/gobase/models/responses"
 )
@@ -14,9 +13,9 @@ type userRepository struct {
 	db *sql.DB
 }
 
-func NewUserRepository() user.Repository {
+func NewUserRepository(db *sql.DB) user.Repository {
 	return &userRepository{
-		db: config.InitDb(),
+		db: db,
 	}
 }
 

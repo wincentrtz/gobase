@@ -24,6 +24,8 @@ func TestFetchUserById(t *testing.T) {
 	mockRepo := new(mocks.Repository)
 	mockRepo.On(FETCH_USER_BY_ID, ID).Return(user, nil)
 	userUsecase := usecase.NewUserUsecase(mockRepo)
-	expectedResult, _ := userUsecase.FetchUserById(ID)
+	expectedResult, err := userUsecase.FetchUserById(ID)
 	assert.Equal(t, user, expectedResult)
+	assert.NotNil(t, expectedResult)
+	assert.NoError(t, err)
 }
