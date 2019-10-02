@@ -22,6 +22,8 @@ func Command(c *cli.Context) error {
 		case "response":
 			generate.Response(c)
 			break
+		case "request":
+			generate.Request(c)
 		}
 
 	case "db":
