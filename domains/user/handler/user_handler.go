@@ -34,11 +34,19 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	user, err := uh.UserUsecase.FetchUserById(i)
 	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
-		er := responses.ErrorResponse{
+		w.WriteHeader(http.StatusNotFound)
+		er := responses.BaseResponse{
 			Message: "Data Not Found",
+			Code:    http.StatusNotFound,
 		}
-		utils.ErrorResponse(w, er)
+		utils.WriteResponse(w, er)
 	} else {
-		utils.SuccessResponse(w, user)
+		w.WriteHeader(http.StatusOK)
+		resp := &responses.BaseResponse{
+			Message: "Success",
+			Code:    http.StatusOK,
+			Data:    user,
+		}
+		utils.WriteResponse(w, resp)
 	}
 }
