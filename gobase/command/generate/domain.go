@@ -105,6 +105,35 @@ func generateHandler(domain string) {
 	}
 }
 
+func generateMocksRepository(domain string) {
+	input, err := ioutil.ReadFile("gobase/template/repository_mocks.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/mocks", 0775)
+	file := string(input)
+	file = strings.Replace(file, "template", "mocks", -1)
+
+	err = ioutil.WriteFile("domains/"+domain+"/mocks/repository.go", []byte(file), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
+}
+
+func generateMocksUsecase(domain string) {
+	input, err := ioutil.ReadFile("gobase/template/usecase_mocks.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = strings.Replace(file, "template", "mocks", -1)
+
+	err = ioutil.WriteFile("domains/"+domain+"/mocks/usecase.go", []byte(file), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
+}
+
 func Domain(c *cli.Context) {
 	domain := c.Args().Get(2)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain, 0775)
@@ -114,6 +143,8 @@ func Domain(c *cli.Context) {
 	generateUsecase(domain)
 	generateUsecaseImpl(domain)
 	generateHandler(domain)
+	generateMocksRepository(domain)
+	generateMocksUsecase(domain)
 
 	fmt.Printf("Successfully generate " + domain + " domain")
 }
