@@ -10,7 +10,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/domains/user"
-	"github.com/wincentrtz/gobase/gobase/config"
+	"github.com/wincentrtz/gobase/gobase/infrastructures/db"
 	"github.com/wincentrtz/gobase/gobase/utils"
 )
 
@@ -19,7 +19,7 @@ type UserHandler struct {
 }
 
 func NewUserHandler(r *mux.Router) {
-	db := config.InitDb()
+	db := db.Postgres()
 	ur := repository.NewUserRepository(db)
 	us := usecase.NewUserUsecase(ur)
 	handler := &UserHandler{
@@ -32,7 +32,6 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	i, _ := strconv.Atoi(vars["id"])
 	user, err := uh.UserUsecase.FetchUserById(i)
-	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		er := responses.BaseResponse{

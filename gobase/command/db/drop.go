@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/wincentrtz/gobase/gobase/config"
 	"github.com/wincentrtz/gobase/gobase/utils"
 )
 
@@ -35,9 +34,7 @@ func GetAllTables(db *sql.DB) string {
 	return tables
 }
 
-func Drop() {
-	db := config.InitDb()
-	defer db.Close()
+func Drop(db *sql.DB) {
 	tables := GetAllTables(db)
 	query := "DROP TABLE " + tables
 	_, err := db.Exec(query)

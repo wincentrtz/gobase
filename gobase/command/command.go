@@ -7,6 +7,7 @@ import (
 	"github.com/wincentrtz/gobase/gobase/command/app"
 	"github.com/wincentrtz/gobase/gobase/command/db"
 	"github.com/wincentrtz/gobase/gobase/command/generate"
+	instance "github.com/wincentrtz/gobase/gobase/infrastructures/db"
 )
 
 func Command(c *cli.Context) error {
@@ -27,13 +28,15 @@ func Command(c *cli.Context) error {
 		}
 
 	case "db":
+		postgres := instance.Postgres()
+		defer postgres.Close()
 		switch c.Args().Get(1) {
 		case "fresh":
-			db.Fresh()
+			db.Fresh(postgres)
 		case "clear":
-			db.Drop()
+			db.Drop(postgres)
 		case "migrate":
-			db.Migrate()
+			db.Migrate(postgres)
 		}
 	case "serve":
 		app.Serve()

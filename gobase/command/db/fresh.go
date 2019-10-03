@@ -1,6 +1,8 @@
 package db
 
-func Fresh() {
-	Drop()
-	Migrate()
+import "database/sql"
+
+func Fresh(db *sql.DB) {
+	Drop(db)
+	Migrate(db)
 }
