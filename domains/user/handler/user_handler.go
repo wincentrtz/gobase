@@ -25,7 +25,7 @@ func NewUserHandler(r *mux.Router) {
 	handler := &UserHandler{
 		UserUsecase: us,
 	}
-	r.HandleFunc("/api/users/{id}", handler.FindById).Methods("GET")
+	r.HandleFunc("/api/users/{id}", handler.FindById).Methods(http.MethodGet)
 }
 
 func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
@@ -35,14 +35,14 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		er := responses.BaseResponse{
-			Message: "Data Not Found",
+			Message: http.StatusText(http.StatusNotFound),
 			Code:    http.StatusNotFound,
 		}
 		utils.WriteResponse(w, er)
 	} else {
 		w.WriteHeader(http.StatusOK)
 		resp := &responses.BaseResponse{
-			Message: "Success",
+			Message: http.StatusText(http.StatusOK),
 			Code:    http.StatusOK,
 			Data:    user,
 		}
