@@ -2,6 +2,7 @@ package route
 
 import (
 	userHandler "github.com/wincentrtz/gobase/domains/user/handler"
+	eventHandler "github.com/wincentrtz/gobase/domains/event/handler"
 	"github.com/wincentrtz/gobase/infrastructures/middleware"
 
 	"github.com/gorilla/mux"
@@ -20,4 +21,5 @@ func registerMiddleware(r *mux.Router) {
 
 func registerHandler(r *mux.Router) {
 	userHandler.NewUserHandler(r)
+	eventHandler.NewEventHandler(r)
 }

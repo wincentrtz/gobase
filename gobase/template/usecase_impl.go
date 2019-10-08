@@ -4,8 +4,8 @@ type templateUsecase struct {
 	templateRepo TemplateRepository
 }
 
-func NewTemplateUsecase() TemplateUsecase {
+func NewTemplateUsecase(tr TemplateRepository) TemplateUsecase {
 	return &templateUsecase{
-		templateRepo: NewTemplateRepository(),
+		templateRepo: tr,
 	}
 }

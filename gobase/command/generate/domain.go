@@ -30,6 +30,8 @@ func generateRepositoryImpl(domain string) {
 		fmt.Printf("File is Not Exist: %v", err)
 	}
 	file := string(input)
+	file = strings.Replace(file, "NewTemplateRepository", "New"+strings.Title(domain)+"Repository", -1)
+	file = strings.Replace(file, "TemplateRepository", domain+"."+strings.Title(domain)+"Repository", -1)
 	file = strings.Replace(file, "Template", strings.Title(domain), -1)
 	file = strings.Replace(file, "templateRepository", domain+"Repository", -1)
 	file = strings.Replace(file, "template", "repository", -1)
@@ -66,7 +68,8 @@ func generateUsecaseImpl(domain string) {
 		fmt.Printf("File is Not Exist: %v", err)
 	}
 	file := string(input)
-	file = strings.Replace(file, "NewTemplateRepository", "repository.New"+strings.Title(domain)+"Repository", -1)
+	file = strings.Replace(file, "NewTemplateUsecase", "New"+strings.Title(domain)+"Usecase", -1)
+	file = strings.Replace(file, "TemplateUsecase", domain+"."+strings.Title(domain)+"Usecase", -1)
 	file = strings.Replace(file, "TemplateRepository", domain+"."+strings.Title(domain)+"Repository", -1)
 	file = strings.Replace(file, "Template", strings.Title(domain), -1)
 	file = strings.Replace(file, "templateRepo", domain+"Repo", -1)
@@ -88,11 +91,14 @@ func generateHandler(domain string) {
 		fmt.Printf("File is Not Exist: %v", err)
 	}
 	file := string(input)
+	file = strings.Replace(file, "NewTemplateRepository", "repository.New"+strings.Title(domain)+"Repository", -1)
 	file = strings.Replace(file, "NewTemplateUsecase", "usecase.New"+strings.Title(domain)+"Usecase", -1)
+	file = strings.Replace(file, "NewTemplateHandler", "New"+strings.Title(domain)+"Handler", -1)
 	file = strings.Replace(file, "TemplateUsecase", domain+"."+strings.Title(domain)+"Usecase", -1)
 	file = strings.Replace(file, "Template", strings.Title(domain), -1)
 	file = strings.Replace(file, "templateUsecase", domain+"Usecase", -1)
 	file = strings.Replace(file, "templateHandler", domain+"Handler", -1)
+	file = strings.Replace(file, "/api/template/{id}", "/api/"+domain+"/{id}", -1)
 	file = strings.Replace(file, "template", "handler", -1)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain+"/handler", 0775)
 	err = ioutil.WriteFile("domains/"+domain+"/handler/"+domain+"_handler.go", []byte(file), 0755)

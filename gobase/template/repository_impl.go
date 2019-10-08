@@ -2,16 +2,14 @@ package template
 
 import (
 	"database/sql"
-
-	"github.com/wincentrtz/gobase/gobase/config"
 )
 
 type templateRepository struct {
 	db *sql.DB
 }
 
-func NewTemplateRepository() TemplateRepository {
+func NewTemplateRepository(db *sql.DB) TemplateRepository {
 	return &templateRepository{
-		db: config.InitDb(),
+		db: db,
 	}
 }

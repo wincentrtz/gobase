@@ -1,25 +1,34 @@
 package template
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/wincentrtz/gobase/gobase/infrastructures/db"
+	"github.com/wincentrtz/gobase/gobase/utils"
+	"github.com/wincentrtz/gobase/models/responses"
 )
 
 type TemplateHandler struct {
 	templateUsecase TemplateUsecase
 }
 
-func NewUserHandler(r *mux.Router) {
+func NewTemplateHandler(r *mux.Router) {
+	db := db.Postgres()
+	ur := NewTemplateRepository(db)
+	us := NewTemplateUsecase(ur)
 	handler := &TemplateHandler{
-		templateUsecase: NewTemplateUsecase(),
+		templateUsecase: us,
 	}
 	r.HandleFunc("/api/template/{id}", handler.FindById).Methods("GET")
 }
 
 func (uh *TemplateHandler) FindById(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode("template")
+	w.WriteHeader(http.StatusOK)
+	resp := &responses.BaseResponse{
+		Message: http.StatusText(http.StatusOK),
+		Code:    http.StatusOK,
+		Data:    "template",
+	}
+	utils.WriteResponse(w, resp)
 }
