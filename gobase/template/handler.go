@@ -24,11 +24,10 @@ func NewTemplateHandler(r *mux.Router) {
 }
 
 func (uh *TemplateHandler) FindById(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
 	resp := &responses.BaseResponse{
 		Message: http.StatusText(http.StatusOK),
 		Code:    http.StatusOK,
 		Data:    "template",
 	}
-	utils.WriteResponse(w, resp)
+	utils.WriteResponse(w, resp, http.StatusOK)
 }

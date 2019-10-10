@@ -33,19 +33,17 @@ func (uh *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	i, _ := strconv.Atoi(vars["id"])
 	user, err := uh.UserUsecase.FetchUserById(i)
 	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
 		er := responses.BaseResponse{
 			Message: http.StatusText(http.StatusNotFound),
 			Code:    http.StatusNotFound,
 		}
-		utils.WriteResponse(w, er)
+		utils.WriteResponse(w, er, http.StatusNotFound)
 	} else {
-		w.WriteHeader(http.StatusOK)
 		resp := &responses.BaseResponse{
 			Message: http.StatusText(http.StatusOK),
 			Code:    http.StatusOK,
 			Data:    user,
 		}
-		utils.WriteResponse(w, resp)
+		utils.WriteResponse(w, resp, http.StatusOK)
 	}
 }

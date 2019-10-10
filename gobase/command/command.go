@@ -11,9 +11,11 @@ import (
 )
 
 func Command(c *cli.Context) error {
-	switch c.Args().Get(0) {
+	firstArgs := c.Args().Get(0)
+	secondArgs := c.Args().Get(1)
+	switch firstArgs {
 	case "generate":
-		switch c.Args().Get(1) {
+		switch secondArgs {
 		case "domain":
 			generate.Domain(c)
 			break
@@ -30,7 +32,7 @@ func Command(c *cli.Context) error {
 	case "db":
 		postgres := instance.Postgres()
 		defer postgres.Close()
-		switch c.Args().Get(1) {
+		switch secondArgs {
 		case "fresh":
 			db.Fresh(postgres)
 		case "clear":
