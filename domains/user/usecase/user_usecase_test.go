@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/wincentrtz/gobase/domains/user/mocks"
 	"github.com/wincentrtz/gobase/domains/user/usecase"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 const FetchUserById = "FetchUserById"

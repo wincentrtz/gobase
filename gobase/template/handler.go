@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/gobase/infrastructures/db"
 	"github.com/wincentrtz/gobase/gobase/utils"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 type TemplateHandler struct {

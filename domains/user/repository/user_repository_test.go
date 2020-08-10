@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/gobase/utils"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 const (
