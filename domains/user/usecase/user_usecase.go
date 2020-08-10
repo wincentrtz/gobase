@@ -15,7 +15,7 @@ func NewUserUsecase(ur user.Repository) user.Usecase {
 	}
 }
 
-func (pu *userUsecase) FetchUserById(userId int) (*responses.User, error) {
+func (pu *userUsecase) FetchUserById(userId int) (*responses.UserResponse, error) {
 	user, err := pu.userRepo.FetchUserById(userId)
 	if err != nil {
 		return nil, err

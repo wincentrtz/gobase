@@ -19,7 +19,7 @@ const (
 
 var ROWS = []string{"id", "name", "email"}
 
-var mockUser = &responses.User{
+var mockUser = &responses.UserResponse{
 	ID:    ID,
 	Name:  NAME,
 	Email: EMAIL,

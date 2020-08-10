@@ -14,7 +14,7 @@ const Id = 1
 const Name = "name"
 const Email = "email@example.com"
 
-var user = &responses.User{
+var user = &responses.UserResponse{
 	ID:    Id,
 	Name:  Name,
 	Email: Email,
