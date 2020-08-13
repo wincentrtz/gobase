@@ -8,7 +8,7 @@ import (
 	"github.com/wincentrtz/gobase/migrations"
 )
 
-func Migrate(db *sql.DB) {
+func Migrate(db *sql.DB, domainName string) {
 	var wg sync.WaitGroup
 	schemas := migrations.GetMigrations()
 	for _, v := range schemas {
