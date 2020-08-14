@@ -2,7 +2,7 @@ package mocks
 
 import (
 	"github.com/stretchr/testify/mock"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 type Repository struct {

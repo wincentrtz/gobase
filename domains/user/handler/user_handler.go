@@ -6,7 +6,7 @@ import (
 
 	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/domains/user/usecase"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 
 	"github.com/gorilla/mux"
 	"github.com/wincentrtz/gobase/domains/user"

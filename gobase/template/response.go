@@ -1,4 +1,5 @@
 package template
 
-type TemplateResponse interface {
+type TemplateResponse struct {
+
 }

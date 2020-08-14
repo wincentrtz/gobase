@@ -2,12 +2,12 @@ package app
 
 import (
 	"fmt"
+	"github.com/wincentrtz/gobase/route"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/wincentrtz/gobase/route"
 )
 
 func Serve() {

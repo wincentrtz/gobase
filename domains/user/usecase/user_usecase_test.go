@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/wincentrtz/gobase/domains/user/mocks"
 	"github.com/wincentrtz/gobase/domains/user/usecase"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 const FetchUserById = "FetchUserById"
@@ -14,7 +14,7 @@ const Id = 1
 const Name = "name"
 const Email = "email@example.com"
 
-var user = &responses.User{
+var user = &responses.UserResponse{
 	ID:    Id,
 	Name:  Name,
 	Email: Email,

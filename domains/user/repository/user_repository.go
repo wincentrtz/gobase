@@ -6,7 +6,7 @@ import (
 
 	"github.com/wincentrtz/gobase/domains/user"
 	"github.com/wincentrtz/gobase/gobase/utils"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 type userRepository struct {
@@ -19,7 +19,7 @@ func NewUserRepository(db *sql.DB) user.Repository {
 	}
 }
 
-func (ur *userRepository) FetchUserById(userId int) (*responses.User, error) {
+func (ur *userRepository) FetchUserById(userId int) (*responses.UserResponse, error) {
 	var id int
 	var name string
 	var email string
@@ -40,7 +40,7 @@ func (ur *userRepository) FetchUserById(userId int) (*responses.User, error) {
 		return nil, err
 	}
 
-	user := &responses.User{
+	user := &responses.UserResponse{
 		ID:    id,
 		Name:  name,
 		Email: email,

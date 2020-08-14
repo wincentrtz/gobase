@@ -1,4 +1,5 @@
 package template
 
-type TemplateRequest interface {
+type TemplateRequest struct {
+
 }

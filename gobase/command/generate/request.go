@@ -10,6 +10,7 @@ import (
 
 func Request(c *cli.Context) {
 	request := c.Args().Get(2)
+	requestFileName := request + "_request" + ".go"
 	input, err := ioutil.ReadFile("gobase/template/request.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -17,7 +18,7 @@ func Request(c *cli.Context) {
 	file := string(input)
 	file = strings.Replace(file, "Template", strings.Title(request), -1)
 	file = strings.Replace(file, "template", "requests", -1)
-	err = ioutil.WriteFile("models/requests/"+request+".go", []byte(file), 0755)
+	err = ioutil.WriteFile("models/dto/requests/" + requestFileName, []byte(file), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}

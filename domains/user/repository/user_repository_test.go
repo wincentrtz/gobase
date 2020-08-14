@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/wincentrtz/gobase/domains/user/repository"
 	"github.com/wincentrtz/gobase/gobase/utils"
-	"github.com/wincentrtz/gobase/models/responses"
+	"github.com/wincentrtz/gobase/models/dto/responses"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 
 var ROWS = []string{"id", "name", "email"}
 
-var mockUser = &responses.User{
+var mockUser = &responses.UserResponse{
 	ID:    ID,
 	Name:  NAME,
 	Email: EMAIL,
