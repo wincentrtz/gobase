@@ -19,7 +19,7 @@ func GetAllTables(db *sql.DB) string {
 		Build()
 	rows, err := db.Query(query)
 	if err != nil || rows == nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	for rows.Next() {
 		var table string
@@ -28,7 +28,7 @@ func GetAllTables(db *sql.DB) string {
 		)
 
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 		}
 
 		if stringBuilder.Len() == 0 {
@@ -40,12 +40,12 @@ func GetAllTables(db *sql.DB) string {
 	return stringBuilder.String()
 }
 
-func Drop(db *sql.DB, domainName string) {
+func Drop(db *sql.DB, targetDomain string) {
 	var tables string
-	if domainName == "all" {
+	if targetDomain == "all" {
 		tables = GetAllTables(db)
 	} else {
-		tables = domainName
+		tables = targetDomain
 	}
 	query := "DROP TABLE " + tables
 	_, err := db.Exec(query)

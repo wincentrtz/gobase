@@ -10,7 +10,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-func generateRepository(domain string) {
+func GenerateRepository(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/repository.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -24,7 +24,7 @@ func generateRepository(domain string) {
 	}
 }
 
-func generateRepositoryImpl(domain string) {
+func GenerateRepositoryImpl(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/repository_impl.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -47,7 +47,7 @@ func generateRepositoryImpl(domain string) {
 	}
 }
 
-func generateUsecase(domain string) {
+func GenerateUsecase(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/usecase.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -62,7 +62,7 @@ func generateUsecase(domain string) {
 	}
 }
 
-func generateUsecaseImpl(domain string) {
+func GenerateUsecaseImpl(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/usecase_impl.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -85,7 +85,7 @@ func generateUsecaseImpl(domain string) {
 	}
 }
 
-func generateHandler(domain string) {
+func GenerateHandler(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/handler.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -111,7 +111,7 @@ func generateHandler(domain string) {
 	}
 }
 
-func generateMocksRepository(domain string) {
+func GenerateMocksRepository(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/repository_mocks.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -126,7 +126,7 @@ func generateMocksRepository(domain string) {
 	}
 }
 
-func generateMocksUsecase(domain string) {
+func GenerateMocksUsecase(domain string) {
 	input, err := ioutil.ReadFile("gobase/template/usecase_mocks.go")
 	if err != nil {
 		fmt.Printf("File is Not Exist: %v", err)
@@ -144,13 +144,14 @@ func Domain(c *cli.Context) {
 	domain := c.Args().Get(2)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain, 0775)
 
-	generateRepository(domain)
-	generateRepositoryImpl(domain)
-	generateUsecase(domain)
-	generateUsecaseImpl(domain)
-	generateHandler(domain)
-	generateMocksRepository(domain)
-	generateMocksUsecase(domain)
+	GenerateRepository(domain)
+	GenerateRepositoryImpl(domain)
+	GenerateUsecase(domain)
+	GenerateUsecaseImpl(domain)
+	GenerateHandler(domain)
+	GenerateMocksRepository(domain)
+	GenerateMocksUsecase(domain)
+	Migration(c)
 
 	fmt.Printf("Successfully generate " + domain + " domain")
 }
