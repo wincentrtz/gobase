@@ -12,10 +12,14 @@ import (
 func Migrate(db *sql.DB, schemaName string) {
 	var wg sync.WaitGroup
 	var schemas []string
+	var tableIdentifier string
+
 	if schemaName == "all" {
 		schemas = migrations.GetMigrations()
+		tableIdentifier = "tables"
 	} else {
 		schemas = migrations.GetMigrationFromSchemaName(schemaName)
+		tableIdentifier = "table"
 	}
 
 	if len(schemas) == 0 {
@@ -30,5 +34,5 @@ func Migrate(db *sql.DB, schemaName string) {
 		}(&wg, v)
 	}
 	wg.Wait()
-	fmt.Print("Successfully migrate all tables")
+	fmt.Printf("Successfully migrate %v %v\n", schemaName, tableIdentifier)
 }

@@ -66,8 +66,8 @@ func (qb *queryBuilder) Join(table string, firstKey string, secondKey string) Qu
 	return qb
 }
 
-func (qb *queryBuilder) GroupBy(groupby string) QueryBuilder {
-	qb.groupby = "GROUP BY " + groupby
+func (qb *queryBuilder) GroupBy(groupBy string) QueryBuilder {
+	qb.groupby = "GROUP BY " + groupBy
 	return qb
 }
 

@@ -2,6 +2,8 @@ package generate
 
 import (
 	"fmt"
+	"github.com/wincentrtz/gobase/gobase/utils"
+	"github.com/wincentrtz/gobase/migrations"
 	"io/ioutil"
 	"log"
 	"strings"
@@ -15,12 +17,16 @@ func AppendToMigration(domain string) {
 	if err != nil {
 		log.Panic(err)
 	}
-	fileContent := string(res)
-	indexToAppend := strings.LastIndex(fileContent, ",") + 1
-	newSchemaSet := "\"" + strings.ToLower(domain) + "\"" + ": " +
-		strings.ToUpper(string(domain[0])) + domain[1:] + "Schema(),"
-	new := fmt.Sprintf("%v\n\t\t%v%v", fileContent[:indexToAppend], newSchemaSet, fileContent[indexToAppend:])
-	ioutil.WriteFile(fileName, []byte(new), 0775)
+	migrationList := migrations.GetAllMigrations()
+	if len(migrationList[domain]) == 0 {
+		fileContent := string(res)
+		indexToAppend := strings.LastIndex(fileContent, ",") + 1
+		newSchemaSet := "\"" + strings.ToLower(domain) + "\"" + ": " +
+			strings.ToUpper(string(domain[0])) + domain[1:] + "Schema(),"
+		finalString := fmt.Sprintf("%v\n\t\t%v%v", fileContent[:indexToAppend],
+			newSchemaSet, fileContent[indexToAppend:])
+		ioutil.WriteFile(fileName, []byte(finalString), 0775)
+	}
 }
 
 func Migration(c *cli.Context) {
@@ -28,15 +34,16 @@ func Migration(c *cli.Context) {
 	if err != nil {
 		log.Fatal("File is Not Exist: %v", err)
 	}
-	domain := c.Args().Get(2)
+	domain := strings.ToLower(c.Args().Get(2))
+	pluralDomain := utils.ConvertToPluralNoun(domain)
 	file := string(input)
 	file = strings.Replace(file, "_TEMPLATE_", strings.Title(domain), -1)
-	file = strings.Replace(file, "_TABLE_", domain+"s", -1)
+	file = strings.Replace(file, "_TABLE_", pluralDomain, -1)
 	file = strings.Replace(file, "template", "migrations", -1)
-	err = ioutil.WriteFile("migrations/"+domain+"s.go", []byte(file), 0755)
+	err = ioutil.WriteFile("migrations/"+pluralDomain+".go", []byte(file), 0755)
 	if err != nil {
 		log.Fatal("Unable to write file: %v", err)
 	}
 	AppendToMigration(domain)
-	fmt.Println("Successfully create migration")
+	fmt.Printf("Successfully create %v migration", domain)
 }

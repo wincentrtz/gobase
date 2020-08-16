@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
-	"os"
-
 	"github.com/urfave/cli"
 	"github.com/wincentrtz/gobase/gobase/command"
+	"log"
+	"os"
 )
 
 func main() {
