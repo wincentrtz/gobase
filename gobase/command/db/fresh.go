@@ -2,7 +2,7 @@ package db
 
 import "database/sql"
 
-func Fresh(db *sql.DB) {
+func Fresh(db *sql.DB, schemaName string) {
 	Drop(db)
-	Migrate(db)
+	Migrate(db, schemaName)
 }
