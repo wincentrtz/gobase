@@ -9,7 +9,7 @@ type Usecase struct {
 	mock.Mock
 }
 
-func (_m *Usecase) FetchUserById(userId int) (responses.User, error) {
+func (_m *Usecase) FetchUserById(userId int) (responses.UserResponse, error) {
 	ret := _m.Called(userId)
-	return ret.Get(0).(responses.User), ret.Error(1)
+	return ret.Get(0).(responses.UserResponse), ret.Error(1)
 }
