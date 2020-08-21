@@ -13,7 +13,7 @@ import (
 func Command(c *cli.Context) error {
 	firstArgs := c.Args().Get(0)
 	secondArgs := c.Args().Get(1)
-	targetDomain := c.Args().Get(2)
+	schemaName := c.Args().Get(2)
 	switch firstArgs {
 	case "generate":
 		switch secondArgs {
@@ -28,6 +28,8 @@ func Command(c *cli.Context) error {
 			break
 		case "request":
 			generate.Request(c)
+		default:
+			fmt.Println("Command Does Not Exist")
 		}
 
 	case "db":
@@ -35,11 +37,13 @@ func Command(c *cli.Context) error {
 		defer postgres.Close()
 		switch secondArgs {
 		case "fresh":
-			db.Fresh(postgres, targetDomain)
+			db.Fresh(postgres, schemaName)
 		case "clear":
-			db.Drop(postgres, targetDomain)
+			db.Drop(postgres, schemaName)
 		case "migrate":
-			db.Migrate(postgres)
+			db.Migrate(postgres, schemaName)
+		default:
+			fmt.Println("Command Does Not Exist")
 		}
 	case "serve":
 		app.Serve()

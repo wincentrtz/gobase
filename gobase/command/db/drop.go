@@ -40,17 +40,20 @@ func GetAllTables(db *sql.DB) string {
 	return stringBuilder.String()
 }
 
-func Drop(db *sql.DB, targetDomain string) {
+func Drop(db *sql.DB, schemaName string) {
 	var tables string
-	if targetDomain == "all" {
+	var tableIdentifier string
+	if schemaName == "all" {
 		tables = GetAllTables(db)
+		tableIdentifier = "tables"
 	} else {
-		tables = targetDomain
+		tables = schemaName
+		tableIdentifier = "table"
 	}
 	query := "DROP TABLE " + tables
 	_, err := db.Exec(query)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Successfully drop tables")
+	fmt.Printf("Successfully drop %v %v\n", schemaName, tableIdentifier)
 }

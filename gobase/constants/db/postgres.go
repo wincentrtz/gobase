@@ -1,4 +1,4 @@
-package constants
+package db
 
 const (
 	Char      = "CHAR"

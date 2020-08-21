@@ -151,7 +151,6 @@ func Domain(c *cli.Context) {
 	GenerateHandler(domain)
 	GenerateMocksRepository(domain)
 	GenerateMocksUsecase(domain)
-	Migration(c)
 
-	fmt.Printf("Successfully generate " + domain + " domain")
+	fmt.Printf("Successfully generate %v domain", domain)
 }
