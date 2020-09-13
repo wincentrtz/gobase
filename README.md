@@ -8,7 +8,7 @@ Currently, *gobase* is only supported for _postgresql_, but we will add more fea
 ## List of commands
 ### Generate
 Generate boilerplate for code
-* domain: Create a template for specific domain.
+* #### domain: Create a template for specific domain.
 
     >**Options:** 
     >- domain: domain name 
@@ -16,7 +16,7 @@ Generate boilerplate for code
     ```
     go run main.go generate domain [OPTIONS] 
     ```
-* ####migration: Create a migration for specific domain.
+* #### migration: Create a migration for specific domain.
 
     >**Options:** 
     >- domain: domain name 
@@ -24,7 +24,7 @@ Generate boilerplate for code
     ```
     go run main.go generate migration [OPTIONS] 
     ```
-* ####response: Create a custom response.
+* #### response: Create a custom response.
 
     >**Options:** 
     >- response: response name 
@@ -32,7 +32,7 @@ Generate boilerplate for code
     ```
     go run main.go generate response [OPTIONS] 
     ```
-* ####request: Create a custom request.
+* #### request: Create a custom request.
 
      >**Options:** 
      >- request: request name 
@@ -42,7 +42,7 @@ Generate boilerplate for code
     ```
 
 ### Db
-* ####fresh: Drop table on database
+* #### fresh: Drop table on database
 
      >**Options:** 
      >- domain: domain name 
@@ -52,7 +52,7 @@ Generate boilerplate for code
      go run main.go db fresh [OPTIONS] 
      ```
 
-* ####clear: Remove table on database
+* #### clear: Remove table on database
     
      >**Options:** 
      >- domain: domain name (NOTE: domain name in plural, see table name or migration file name)
@@ -62,7 +62,7 @@ Generate boilerplate for code
      go run main.go db clear [OPTIONS] 
      ```
 
-* ####migrate: Run migration
+* #### migrate: Run migration
 
      >**Options:** 
      >- migration: migration name (NOTE: migration name in plural, see table name or migration file name)
