@@ -1,14 +1,12 @@
 package template
 
-import (
-	"database/sql"
-)
+import "gorm.io/gorm"
 
 type templateRepository struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func NewTemplateRepository(db *sql.DB) TemplateRepository {
+func NewTemplateRepository(db *gorm.DB) TemplateRepository {
 	return &templateRepository{
 		db: db,
 	}

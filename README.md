@@ -29,16 +29,6 @@ Generate boilerplate for code
   go run main.go generate domain [OPTIONS]
   ```
 
-- #### migration: Create a migration for specific domain.
-
-  > **Options:**
-  >
-  > - domain: domain name
-
-  ```
-  go run main.go generate migration [OPTIONS]
-  ```
-
 - #### response: Create a custom response.
 
   > **Options:**
