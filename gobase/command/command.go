@@ -13,15 +13,11 @@ import (
 func Command(c *cli.Context) error {
 	firstArgs := c.Args().Get(0)
 	secondArgs := c.Args().Get(1)
-	schemaName := c.Args().Get(2)
 	switch firstArgs {
 	case "generate":
 		switch secondArgs {
 		case "domain":
 			generate.Domain(c)
-			break
-		case "migration":
-			generate.Migration(c)
 			break
 		case "response":
 			generate.Response(c)
@@ -34,14 +30,13 @@ func Command(c *cli.Context) error {
 
 	case "db":
 		postgres := instance.Postgres()
-		defer postgres.Close()
 		switch secondArgs {
 		case "fresh":
-			db.Fresh(postgres, schemaName)
+			db.Fresh(postgres)
 		case "clear":
-			db.Drop(postgres, schemaName)
+			db.Drop(postgres)
 		case "migrate":
-			db.Migrate(postgres, schemaName)
+			db.Migrate(postgres)
 		default:
 			fmt.Println("Command Does Not Exist")
 		}

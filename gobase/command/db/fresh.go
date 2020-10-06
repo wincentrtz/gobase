@@ -1,12 +1,10 @@
 package db
 
 import (
-	"database/sql"
-	"github.com/wincentrtz/gobase/gobase/utils"
+	"gorm.io/gorm"
 )
 
-func Fresh(db *sql.DB, schemaName string) {
-	pluralSchemaName := utils.ConvertToPluralNoun(schemaName)
-	Drop(db, pluralSchemaName)
-	Migrate(db, schemaName)
+func Fresh(db *gorm.DB) {
+	Drop(db)
+	Migrate(db)
 }
