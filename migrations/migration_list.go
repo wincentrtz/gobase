@@ -1,5 +1,11 @@
 package migrations
 
-var MigrationList = map[string]string{
-	"user":    UserSchema(),
+import (
+	"github.com/wincentrtz/gobase/models/entity"
+)
+
+var user entity.User
+
+func MigrationList() []interface{} {
+	return []interface{}{&user}
 }

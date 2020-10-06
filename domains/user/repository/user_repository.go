@@ -1,50 +1,32 @@
 package repository
 
 import (
-	"database/sql"
-	"strconv"
-
 	"github.com/wincentrtz/gobase/domains/user"
-	"github.com/wincentrtz/gobase/gobase/utils"
 	"github.com/wincentrtz/gobase/models/dto/responses"
+	"github.com/wincentrtz/gobase/models/entity"
+	"gorm.io/gorm"
 )
 
 type userRepository struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func NewUserRepository(db *sql.DB) user.Repository {
+func NewUserRepository(db *gorm.DB) user.Repository {
 	return &userRepository{
 		db: db,
 	}
 }
 
 func (ur *userRepository) FetchUserById(userId int) (*responses.UserResponse, error) {
-	var id int
-	var name string
-	var email string
 
-	query := utils.NewQueryBuilder().
-		Table("users").
-		Select("id,name,email").
-		Where("id", "=", strconv.Itoa(userId)).
-		Build()
+	user := entity.User{}
+	ur.db.First(&user, userId)
 
-	err := ur.db.QueryRow(query).Scan(
-		&id,
-		&name,
-		&email,
-	)
-
-	if err != nil {
-		return nil, err
+	userResponse := &responses.UserResponse{
+		ID:    user.ID,
+		Name:  user.Name,
+		Email: user.Email,
 	}
 
-	user := &responses.UserResponse{
-		ID:    id,
-		Name:  name,
-		Email: email,
-	}
-
-	return user, nil
+	return userResponse, nil
 }
