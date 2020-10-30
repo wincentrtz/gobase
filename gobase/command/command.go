@@ -24,6 +24,8 @@ func Command(c *cli.Context) error {
 			break
 		case "request":
 			generate.Request(c)
+		case "seeder":
+			generate.Seeder(c)
 		default:
 			fmt.Println("Command Does Not Exist")
 		}
@@ -37,6 +39,8 @@ func Command(c *cli.Context) error {
 			db.Drop(postgres)
 		case "migrate":
 			db.Migrate(postgres)
+		case "seed":
+			db.Seed(postgres)
 		default:
 			fmt.Println("Command Does Not Exist")
 		}
