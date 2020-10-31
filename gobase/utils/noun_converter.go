@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/wincentrtz/gobase/gobase/constants/noun"
-	"strings"
+"github.com/wincentrtz/gobase/gobase/constants/noun"
+"strings"
 )
 
 func ConvertToPluralNoun(n string) string {
