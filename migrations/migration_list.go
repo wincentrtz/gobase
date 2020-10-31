@@ -5,7 +5,8 @@ import (
 )
 
 var user entity.User
+var product entity.Product
 
 func MigrationList() []interface{} {
-	return []interface{}{&user}
+	return []interface{}{&user, &product}
 }
