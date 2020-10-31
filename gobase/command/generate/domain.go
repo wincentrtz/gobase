@@ -155,6 +155,21 @@ func GenerateEntity(domain string) {
 	}
 }
 
+func GenerateMigration(domain string) {
+	input, err := ioutil.ReadFile("migrations/migration_list.go")
+	if err != nil {
+		fmt.Printf("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = file[:strings.Index(file, ",")+1] +
+		fmt.Sprintf("\n\t\t&entity.%v{},", strings.Title(domain)) + file[strings.Index(file, ",")+1:]
+
+	err = ioutil.WriteFile("migrations/migration_list.go", []byte(file), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
+}
+
 func Domain(c *cli.Context) {
 	domain := c.Args().Get(2)
 	os.Mkdir("."+string(filepath.Separator)+"domains/"+domain, 0775)
@@ -167,6 +182,7 @@ func Domain(c *cli.Context) {
 	GenerateMocksRepository(domain)
 	GenerateMocksUsecase(domain)
 	GenerateEntity(domain)
+	GenerateMigration(domain)
 
 	fmt.Printf("Successfully generate %v domain", domain)
 }
