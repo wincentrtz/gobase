@@ -7,7 +7,5 @@ import (
 func MigrationList() []interface{} {
 	return []interface{}{
 		&entity.User{},
-		&entity.Merchant{},
-		&entity.Product{},
 	}
 }

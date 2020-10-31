@@ -20,5 +20,8 @@ func (*user) SeedTable(db *gorm.DB) {
 			"email1",
 		},
 	}
-	db.Create(&users)
+
+	if len(users) != 0 {
+		db.Create(&users)
+	}
 }

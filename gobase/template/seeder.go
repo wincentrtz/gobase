@@ -8,5 +8,7 @@ type template struct{}
 
 func (*template) SeedTable(db *gorm.DB) {
 	templates := []template{}
-	db.Create(&templates)
+	if len(templates) != 0 {
+		db.Create(&templates)
+	}
 }

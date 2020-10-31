@@ -48,6 +48,16 @@ Generate boilerplate for code
   ```
   go run main.go generate request [OPTIONS]
   ```
+  
+- #### seeder: Create a table seeder.
+
+  > **Options:**
+  >
+  > - seeder: entity name (entity **must** be exist on entity package)
+
+  ```
+  go run main.go generate seeder [OPTIONS]
+  ```
 
 ### Db
 
@@ -66,4 +76,9 @@ Generate boilerplate for code
 - #### migrate: Run migration
   ```
   go run main.go db migrate
+  ```
+  
+- #### seed: Run seeder
+  ```
+  go run main.go db seed
   ```

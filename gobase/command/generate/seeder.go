@@ -22,11 +22,29 @@ func Seeder(c *cli.Context) {
 	}
 	file := string(input)
 	file = strings.Replace(file, "template", "seeders", 1)
-	file = file[:strings.Index(file, "(")+1]+
-		"\n\t\"github.com/wincentrtz/gobase/models/entity\""+ file[strings.Index(file, "(")+1:]
+	file = file[:strings.Index(file, "(")+1] +
+		"\n\t\"github.com/wincentrtz/gobase/models/entity\"" + file[strings.Index(file, "(")+1:]
+	file = strings.Replace(file, "templates", utils.ConvertToPluralNoun(domain), -1)
 	file = strings.Replace(file, "template", domain, -1)
 	file = strings.Replace(file, "struct{}", "entity."+strings.Title(domain), -1)
 	err = ioutil.WriteFile("seeders/"+domain+"_seeder.go", []byte(file), 0755)
+	if err != nil {
+		fmt.Printf("Unable to write file: %v", err)
+	}
+	AddSeederList(domain)
+	fmt.Printf("Successfully generate %v seeder", domain)
+}
+
+func AddSeederList(domain string) {
+	input, err := ioutil.ReadFile("seeders/seeder.go")
+	if err != nil {
+		log.Fatal("File is Not Exist: %v", err)
+	}
+	file := string(input)
+	file = file[:strings.LastIndex(file, ",")+1] +
+		fmt.Sprintf("\n\t\t&%v{},", domain) +
+		file[strings.LastIndex(file, ",")+1:]
+	err = ioutil.WriteFile("seeders/seeder.go", []byte(file), 0755)
 	if err != nil {
 		fmt.Printf("Unable to write file: %v", err)
 	}
